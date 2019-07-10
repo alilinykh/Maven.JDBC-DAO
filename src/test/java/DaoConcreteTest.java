@@ -64,7 +64,8 @@ public class DaoConcreteTest {
 
     @Test
     public void deleteBook() {
-        //Assert.assertTrue(daoConcrete.deleteBook());
+        int idToDelete = daoConcrete.getAllBooks().size();
+        Assert.assertTrue(daoConcrete.deleteBook(idToDelete));
     }
 
 }

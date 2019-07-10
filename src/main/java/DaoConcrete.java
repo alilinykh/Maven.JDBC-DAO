@@ -1,5 +1,4 @@
 import daos.BookDao;
-import daos.ConnectionFactory;
 import models.Book;
 
 import java.sql.*;

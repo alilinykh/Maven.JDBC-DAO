@@ -12,4 +12,5 @@ public interface BookDao {
     boolean updateBook(Book book);
     boolean deleteBook(Integer book_id);
 
+
 }
