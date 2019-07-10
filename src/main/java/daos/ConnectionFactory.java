@@ -13,7 +13,7 @@ public class ConnectionFactory {
 
     public static Connection getConnection() {
         try {
-            DriverManager.registerDriver(new Driver());
+            //DriverManager.registerDriver(new Driver());
             return DriverManager.getConnection(URL,USER,PASS);
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to DBC", e);
