@@ -18,6 +18,9 @@ public class DaoConcrete implements BookDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            closeConnection(connection);
+        }
         return null;
     }
 
@@ -31,10 +34,14 @@ public class DaoConcrete implements BookDao {
             while (resultSet.next()) {
                 Book book = extractBookFromResultSet(resultSet);
                 books.add(book);
-                return books;
             }
+            return books;
+
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            closeConnection(connection);
         }
 
         return null;
@@ -43,7 +50,7 @@ public class DaoConcrete implements BookDao {
     public Book getBookByTitle(String title) {
         Connection connection  = ConnectionFactory.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM book WHERE title = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM books WHERE title = ?");
             preparedStatement.setString(1, title);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -51,6 +58,9 @@ public class DaoConcrete implements BookDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            closeConnection(connection);
         }
         return null;
     }
@@ -70,6 +80,9 @@ public class DaoConcrete implements BookDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            closeConnection(connection);
         }
         return false;
     }
@@ -91,6 +104,9 @@ public class DaoConcrete implements BookDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            closeConnection(connection);
+        }
 
         return false;
     }
@@ -108,6 +124,9 @@ public class DaoConcrete implements BookDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            closeConnection(connection);
+        }
         return false;
     }
     //added extra method extractBookFromResultSet ()
@@ -115,7 +134,7 @@ public class DaoConcrete implements BookDao {
 
 The new method would throw SQLException and would be provate to limit access only inside the class:*/
 
-    private Book extractBookFromResultSet(ResultSet rs) throws SQLException {
+    protected Book extractBookFromResultSet(ResultSet rs) throws SQLException {
         Book book = new Book();
         book.setBook_id(rs.getInt("book_id"));
         book.setTitle(rs.getString("title"));
